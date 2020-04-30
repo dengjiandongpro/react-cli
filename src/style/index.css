@@ -1,0 +1,7 @@
+.out{
+    color:#fe8d57;
+    height: 300px;
+    width: 500px;
+    background: url(../images/error.png);
+    display: flex;
+}
