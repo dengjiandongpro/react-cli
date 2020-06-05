@@ -5,3 +5,7 @@
     background: url(../images/error.png);
     display: flex;
 }
+.countBox{
+    text-align: center;
+    margin-top: 100px;
+}

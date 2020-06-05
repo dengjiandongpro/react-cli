@@ -1,10 +1,13 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 module.exports = {
@@ -87,6 +90,19 @@ module.exports = {
             }
         ]
     },
+    //多入口用这个分离业务公共包
+    // optimization: {
+    //     splitChunks: {
+    //         minSize: 0,
+    //         cacheGroups: {
+    //             commons: {
+    //                 name: 'commons',
+    //                 chunks: 'all',
+    //                 minChunks: 2
+    //             }
+    //         }
+    //     }
+    // },
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css'
@@ -96,9 +112,13 @@ module.exports = {
             cssProcessor: require('cssnano')
         }),
         new CleanWebpackPlugin(),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./build/library/library.json')
+        }),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src/index.html'),
-            filename: 'index.html',
+            template: path.join(__dirname, 'src/templates/index.cshtml'),
+            filename: 'index.cshtml',
             chunks: ['index'],
             inject: true,
             minify: {
@@ -109,7 +129,13 @@ module.exports = {
                 minifyJS: true,
                 removeComments: false
             }
-        })
+        }),
+        new AddAssetHtmlPlugin({
+            filepath: path.resolve(__dirname, './build/library/*.js'),
+        }),
+        new BundleAnalyzerPlugin()
+
+        
         // new HtmlWebpackExternalsPlugin({
         //     externals: [
         //         {
@@ -127,3 +153,5 @@ module.exports = {
     ],
     devtool: 'cheap-source-map'
 };
+
+
