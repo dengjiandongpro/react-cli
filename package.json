@@ -30,7 +30,6 @@
     "file-loader": "^3.0.1",
     "html-webpack-externals-plugin": "^3.8.0",
     "html-webpack-plugin": "^3.2.0",
-    "jquery": "^3.5.1",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.6.0",
@@ -52,16 +51,13 @@
   "dependencies": {
     "axios": "^0.19.2",
     "prop-types": "^15.7.2",
-    "rc-pagination": "^1.15.0",
     "react-app-polyfill": "^1.0.6",
     "react-loadable": "^5.5.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^4.3.1",
-    "react-slick": "^0.26.1",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "slick-carousel": "^1.8.1"
+    "redux-thunk": "^2.3.0"
   },
   "__npminstall_done": "Thu Apr 30 2020 12:26:27 GMT+0800 (GMT+08:00)",
   "_from": "builder-webpack-djd@1.0.0",

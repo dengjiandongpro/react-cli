@@ -106,9 +106,7 @@ module.exports = {
     // },
     plugins: [
         new webpack.DefinePlugin({
-            'BASE_API': JSON.stringify('/doubletop/'),
-            'BASE_API_JSON': JSON.stringify('/res/doubleTop/home/'),
-            'BASE_IMG_URI': JSON.stringify('/res/doubleTop/home/')
+            'BASE_API': JSON.stringify('/doubletop/')
         }),
         new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css'
