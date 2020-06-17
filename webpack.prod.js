@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 module.exports = {
@@ -65,7 +66,7 @@ module.exports = {
                 ]
             },
             {
-                test: /.(png|jpg|gif|jpeg)$/,
+                test: /.(png|jpg|gif|jpeg|svg)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -104,6 +105,11 @@ module.exports = {
     //     }
     // },
     plugins: [
+        new webpack.DefinePlugin({
+            'BASE_API': JSON.stringify('/doubletop/'),
+            'BASE_API_JSON': JSON.stringify('/res/doubleTop/home/'),
+            'BASE_IMG_URI': JSON.stringify('/res/doubleTop/home/')
+        }),
         new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css'
         }),
@@ -133,6 +139,17 @@ module.exports = {
         new AddAssetHtmlPlugin({
             filepath: path.resolve(__dirname, './build/library/*.js'),
         }),
+        new AddAssetHtmlPlugin({
+            filepath: path.resolve(__dirname, './build/jquery/*.js'),
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { 
+                  from: path.resolve(__dirname, './static'), 
+                  to: 'static'
+                }
+            ],
+        }),
         new BundleAnalyzerPlugin()
 
         
@@ -151,7 +168,7 @@ module.exports = {
         //     ]
         // })
     ],
-    devtool: 'cheap-source-map'
+    devtool: 'source-map'
 };
 
 

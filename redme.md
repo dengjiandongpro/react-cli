@@ -26,7 +26,7 @@
 │   ├── store                   // redux store
 │   ├── templates               // html or cshtml 模板
 │   ├── util                    // 工具函数
-│   └── index.js                        // 入口文件                  
+│   └── index.js                // 入口文件                  
 ├── .babellrc                   // babel配置文件
 ├── packjson
 ├── webpack.dev.js              //开发环境webpack配置

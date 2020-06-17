@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 
@@ -38,7 +39,7 @@ module.exports = {
                 ]
             },
             {
-                test: /.(png|jpg|gif|jpeg)$/,
+                test: /.(png|jpg|gif|jpeg|svg)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -56,6 +57,9 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'BASE_API': JSON.stringify('/api/')
+        }),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src/templates/index.html'),
             filename: 'index.html',
@@ -69,12 +73,29 @@ module.exports = {
                 minifyJS: true,
                 removeComments: false
             }
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { 
+                  from: path.resolve(__dirname, './static'), 
+                  to: 'static'
+                }
+            ],
         })
     ],
     devServer: {
-        contentBase: './dist',
+        contentBase: false,
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            '/api': {
+                target: 'http://192.168.30.57:80/',
+                changeOrigin: true, //接受对方是https的接口
+                pathRewrite: {
+                    '^/api': ''
+                }        
+            }
+        }
        
     }
 };
